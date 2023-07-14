@@ -15,8 +15,8 @@ trait Visitors
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(1));
 
         return [
-            'result' => $analyticsData[0]['activeUsers'],
-            'previous' => $analyticsData[1]['activeUsers']
+            'result' => $analyticsData->first()['activeUsers'] ?? 0,
+            'previous' => $analyticsData->last()['activeUsers'] ?? 0,
         ];
     }
 
@@ -25,8 +25,8 @@ trait Visitors
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create(Carbon::yesterday()->clone()->subDay(), Carbon::yesterday()));
 
         return [
-            'result' => $analyticsData[0]['activeUsers'],
-            'previous' => $analyticsData[1]['activeUsers']
+            'result' => $analyticsData->first()['activeUsers'] ?? 0,
+            'previous' => $analyticsData->last()['activeUsers'] ?? 0,
         ];
     }
 
